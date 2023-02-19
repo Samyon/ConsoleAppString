@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ConsoleAppString
 {
@@ -107,10 +108,10 @@ namespace ConsoleAppString
         public void Test()
         {
             var test_cases = new[] {
-                //("", 5, ""),
-                //("test", 5, "test "),
-                //("Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", 12,
-                // "Lorem  ipsum\ndolor    sit\namet        \nconsectetur \nadipiscing  \nelit  sed do\neiusmod     \ntempor      \nincididunt  \nut labore et\ndolore magna\naliqua      "),
+                ("", 5, ""),
+                ("test", 5, "test "),
+                ("Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", 12,
+                 "Lorem  ipsum\ndolor    sit\namet        \nconsectetur \nadipiscing  \nelit  sed do\neiusmod     \ntempor      \nincididunt  \nut labore et\ndolore magna\naliqua      "),
                 ("Lorem     ipsum    dolor", 17, "Lorem ipsum dolor")
             };
 
@@ -126,6 +127,7 @@ namespace ConsoleAppString
 
 
             }
+            Console.WriteLine(@"Всё ОК");
         }
     }
 }
