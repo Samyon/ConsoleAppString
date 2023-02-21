@@ -3,61 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ConsoleAppString
 {
-    internal class Class1
+    internal class Class2
     {
+        class WordCl
+        {
+            public string Word = "";
+            public string Space = "";
+            public bool Current = false;
+            public bool WorkedOut = false;
+        }
 
 
-
-            public string Transform(string input, int line_width)
+        public string Transform(string input, int line_width)
         {
             string result = "";
-            var words2 = input.Split(' ').ToList();
-            words2.RemoveAll(string.IsNullOrEmpty);
-            string?[] words = words2.ToArray();
-
-
-            var wordsLength = words.Length;
-            int beginWord = 0;
-            int count = 0;
-            int totalWords = 0;
-
-            for (int i = beginWord; i < wordsLength; i++)
+            string resStr;
+            var words = new List<WordCl>();
+            foreach (var word in input.Split(' '))
             {
-                count += words[i].Length;
-                totalWords++;
+                if (word!= "") words.Add(new WordCl { Word = word });
+            }
+
+
+
+            for (int i = 0; i < words.Count; i++)
+            {
+                words[i].Current = true;
+                int currentWidth =  words[i].Word.Length;
+
+
+                int count = words.Where(x => x.Current).Sum(x => x.Word.Length+x.Space.Length);
+
+
+
 
                 if (count == line_width)
                 {
-                    result += Fill(line_width, i, wordsLength, words,
-                          ref count, ref totalWords, ref beginWord);
+                    words.Where(x => x.Current).Select(x=>x.Word+x.Space).
                     continue;
                 }
 
                 if (count > line_width)
                 {
+                    
+                    words[i].Space.Remove(words[i].Space.Length-1);
+                    words[i].Current = false;
+                    i -= 1;
 
-                    if (totalWords > 1)
-                    {
-                        totalWords--;
-                        count -= words[i].Length + 1;
-                        i--;
-                    }
-                    result += Fill(line_width, i, wordsLength, words,
-                          ref count, ref totalWords, ref beginWord);
+
                     continue;
                 }
 
-                if ((i == wordsLength - 1) && (count < line_width))
+                if ((i == words.Count - 1) && (count < line_width))
                 {
-                    result += Fill(line_width, i, wordsLength, words,
-                             ref count, ref totalWords, ref beginWord);
+
                 }
 
-                count++;
+                words[i].Space += " ";
             }//for i
 
 
@@ -123,5 +128,13 @@ namespace ConsoleAppString
             }
             Console.WriteLine(@"Всё ОК");
         }
+
+
+
+
+
+
+
+
     }
 }
