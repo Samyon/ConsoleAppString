@@ -20,11 +20,11 @@ namespace ConsoleAppString
         public string Transform(string input, int line_width)
         {
             string result = "";
-            string resStr;
+            string resStr = "";
             var words = new List<WordCl>();
             foreach (var word in input.Split(' '))
             {
-                if (word!= "") words.Add(new WordCl { Word = word });
+                if (word != "") words.Add(new WordCl { Word = word });
             }
 
 
@@ -32,34 +32,32 @@ namespace ConsoleAppString
             for (int i = 0; i < words.Count; i++)
             {
                 words[i].Current = true;
-                int currentWidth =  words[i].Word.Length;
+                resStr = string.Join("", words.Where(x => x.Current).Select(x => x.Word + x.Space));
 
-
-                int count = words.Where(x => x.Current).Sum(x => x.Word.Length+x.Space.Length);
-
-
-
-
-                if (count == line_width)
+                if (resStr.Length == line_width)
                 {
-                    words.Where(x => x.Current).Select(x=>x.Word+x.Space).
+                    result += resStr;
+                    if (i < words.Count - 1) result += "\n";
+                    foreach (var item in words.Where(x => x.Current))
+                    {
+                        item.Current = false;
+                    }
                     continue;
                 }
 
-                if (count > line_width)
+                if (resStr.Length > line_width)
                 {
-                    
-                    words[i].Space.Remove(words[i].Space.Length-1);
                     words[i].Current = false;
                     i -= 1;
-
-
+                    words[i].Space = words[i].Space.Remove(words[i].Space.Length - 1);
+                    result += Fill(line_width, words);
+                    if (i < words.Count - 1) result += "\n";
                     continue;
                 }
 
-                if ((i == words.Count - 1) && (count < line_width))
+                if ((i == words.Count - 1) && (resStr.Length < line_width))
                 {
-
+                    result += Fill(line_width, words);
                 }
 
                 words[i].Space += " ";
@@ -70,40 +68,35 @@ namespace ConsoleAppString
             return result;
         }
 
-        string Fill(int line_width, int EndWord, int wordsLength, string?[] words,
-            ref int count, ref int totalWords, ref int beginWord)
+        string Fill(int line_width, List<WordCl> words)
         {
-            string result = "";
-            int minSpaces;
-            int needSpaces = line_width - count;
-            if (totalWords == 1)
+            string resStr = "";
+            var currentWords = words.Where(x => x.Current).ToList();
+            int count = currentWords.Count();
+            for (int i = 0; ; i++)
             {
-                if ((line_width - count) < 0)
-                    result += words[EndWord];
-                else
-                    result += words[EndWord] + new string(' ', line_width - count);
-            }
-            else
-            {
-                minSpaces = needSpaces / (totalWords - 1) + 1;
-                int advSpaces = needSpaces % (totalWords - 1);
-
-                int addSpace;
-                for (int i1 = beginWord; i1 < EndWord; i1++)
+                if ((i == count - 1) || (count == 1))
                 {
-                    if ((i1 - beginWord) < advSpaces) addSpace = 1; else addSpace = 0;
-                    if (i1 == wordsLength) minSpaces = 0;
-                    result += words[i1] + new string(' ', minSpaces + addSpace);
+                    i = 0;
                 }
-                result += words[EndWord];
-            }
-            totalWords = 0;
-            beginWord = EndWord + 1;
-            count = 0;
+                currentWords[i].Space += " ";
 
-            if (EndWord < wordsLength - 1) result += "\n";
-            return result;
+                resStr = string.Join("", currentWords.Select(x => x.Word + x.Space));
+                if (resStr.Length == line_width)
+                {
+                    break;
+                }
+            }
+
+
+            foreach (var item in currentWords)
+            {
+                item.Current = false;
+            }
+            return resStr;
         }
+
+
 
 
 

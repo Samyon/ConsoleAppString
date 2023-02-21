@@ -5,8 +5,8 @@ Console.WriteLine("Hello, World!");
 
 
 
-var class1 = new Class1();
-class1.Test();
+var class2 = new Class2();
+class2.Test();
 Console.ReadLine();
 
 
