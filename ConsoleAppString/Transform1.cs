@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace ConsoleAppString
+﻿namespace ConsoleAppString
 {
-    internal class Class1
+    public class Transform1 : ITransform
     {
-        public string Transform(string input, int line_width)
+        public string Go(string input, int line_width)
         {
             string result = "";
             var words2 = input.Split(' ').ToList();
@@ -95,27 +88,5 @@ namespace ConsoleAppString
         }
 
 
-
-        public void Test()
-        {
-            var test_cases = new[] {
-                ("", 5, ""),
-                ("test", 5, "test "),
-                ("Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", 12,
-                 "Lorem  ipsum\ndolor    sit\namet        \nconsectetur \nadipiscing  \nelit  sed do\neiusmod     \ntempor      \nincididunt  \nut labore et\ndolore magna\naliqua      "),
-                ("Lorem     ipsum    dolor", 17, "Lorem ipsum dolor")
-            };
-
-
-            foreach (var test in test_cases)
-            {
-                string str = Transform(test.Item1, test.Item2);
-                if (test.Item3 != str)
-                {
-                    Console.WriteLine(@"Ожидалось: _{0}_, Получилось: _{1}_", test.Item3, str);
-                }
-            }
-            Console.WriteLine(@"Всё ОК");
-        }
     }
 }

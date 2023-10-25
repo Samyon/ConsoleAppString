@@ -1,13 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ConsoleAppString;
 
-Console.WriteLine("Hello, World!");
+Console.BackgroundColor = ConsoleColor.White;
+Console.ForegroundColor = ConsoleColor.Black;
 
+var test = new Test();
+test.Go(new Transform2());
+test.Go(new Transform1());
 
-
-var class2 = new Class2();
-class2.Test();
-Console.ReadLine();
 
 
 
