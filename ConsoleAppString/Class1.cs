@@ -9,16 +9,12 @@ namespace ConsoleAppString
 {
     internal class Class1
     {
-
-
-
-            public string Transform(string input, int line_width)
+        public string Transform(string input, int line_width)
         {
             string result = "";
             var words2 = input.Split(' ').ToList();
             words2.RemoveAll(string.IsNullOrEmpty);
             string?[] words = words2.ToArray();
-
 
             var wordsLength = words.Length;
             int beginWord = 0;
@@ -59,8 +55,6 @@ namespace ConsoleAppString
 
                 count++;
             }//for i
-
-
 
             return result;
         }

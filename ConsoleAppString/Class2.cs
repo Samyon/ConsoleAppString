@@ -16,7 +16,6 @@ namespace ConsoleAppString
             public bool WorkedOut = false;
         }
 
-
         public string Transform(string input, int line_width)
         {
             string result = "";
@@ -26,8 +25,6 @@ namespace ConsoleAppString
             {
                 if (word != "") words.Add(new WordCl { Word = word });
             }
-
-
 
             for (int i = 0; i < words.Count; i++)
             {
@@ -63,8 +60,6 @@ namespace ConsoleAppString
                 words[i].Space += " ";
             }//for i
 
-
-
             return result;
         }
 
@@ -88,7 +83,6 @@ namespace ConsoleAppString
                 }
             }
 
-
             foreach (var item in currentWords)
             {
                 item.Current = false;
@@ -110,7 +104,6 @@ namespace ConsoleAppString
                 ("Lorem     ipsum    dolor", 17, "Lorem ipsum dolor")
             };
 
-
             foreach (var test in test_cases)
             {
                 string str = Transform(test.Item1, test.Item2);
@@ -121,13 +114,6 @@ namespace ConsoleAppString
             }
             Console.WriteLine(@"Всё ОК");
         }
-
-
-
-
-
-
-
 
     }
 }
